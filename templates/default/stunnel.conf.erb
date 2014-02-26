@@ -1,0 +1,15 @@
+# GLOBAL OPTIONS 
+client = yes 
+foreground = no
+output = /var/log/stunnel.log
+
+# SERVICE-LEVEL OPTIONS
+[POP3 Incoming] 
+accept = 110 
+connect = outlook.office365.com:995
+
+[SMTP Outgoing] 
+protocol = smtp 
+accept = 25 
+connect = outlook.office365.com:587
+

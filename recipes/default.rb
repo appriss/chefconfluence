@@ -157,3 +157,48 @@ end
 #  server_name node[:fqdn]
 #  server_aliases [node[:hostname], "confluence"]
 #end
+
+# Add and setup sTunnel for Email Forwarding to office365
+# By: Rick Thiessen - 02/26/2014
+# Original config by: Eric Pullen
+# disable sendmail
+execute "disable sendmail" do
+  command "service sendmail stop"
+  action :nothing
+end
+execute "remove autostart for sendmail" do
+  command "chkconfig --del sendmail"
+  action :nothing
+end
+
+# install sTunnel (yum)
+yum_package "stunnel" do
+  arch "x86_64"
+  only_if { platform_family?( "rhel", "fedora" ) }
+end
+
+# add config
+# destination: /etc/stunnel/stunnel.conf
+template ::File.join("/etc/stunnel","stunnel.conf") do
+  owner node[:root][:run_as]
+  source "stunnel.conf.erb"
+  mode 0644
+end
+
+# add init.d file
+# destination: /etc/init.d/stunnel
+template ::File.join("/etc/init.d","stunnel") do
+  owner node[:root][:run_as]
+  source "stunnel.init.erb"
+  mode 0755
+end
+
+# setup so it can autostart on reboot.
+execute "add autostart for stunnel" do
+  command "chkconfig --add stunnel"
+  action :nothing
+end
+execute "start stunnel" do
+  command "service stunnel start"
+  action :nothing
+end
