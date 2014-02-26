@@ -165,10 +165,12 @@ end
 execute "disable sendmail" do
   command "service sendmail stop"
   action :nothing
+  returns [0,1]
+  notifies :stop, "service[sendmail]", :immediately
 end
 execute "remove autostart for sendmail" do
   command "chkconfig --del sendmail"
-  action :nothing
+  action :run
 end
 
 # install sTunnel (yum)
@@ -196,9 +198,11 @@ end
 # setup so it can autostart on reboot.
 execute "add autostart for stunnel" do
   command "chkconfig --add stunnel"
-  action :nothing
+  action :run
 end
 execute "start stunnel" do
   command "service stunnel start"
   action :nothing
+  returns [0,1]
+  notifies :start, "service[stunnel]", :immediately
 end
