@@ -179,7 +179,7 @@ end
 
 # add config
 # destination: /etc/stunnel/stunnel.conf
-template ::File.join("/etc/stunnel","stunnel.conf") do
+template ::File.join("/etc/stunnel","/stunnel.conf") do
   owner node[:root][:run_as]
   source "stunnel.conf.erb"
   mode 0644
@@ -187,7 +187,7 @@ end
 
 # add init.d file
 # destination: /etc/init.d/stunnel
-template ::File.join("/etc/init.d","stunnel") do
+template ::File.join("/etc/init.d","/stunnel") do
   owner node[:root][:run_as]
   source "stunnel.init.erb"
   mode 0755
