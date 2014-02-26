@@ -164,9 +164,9 @@ end
 # disable sendmail
 execute "disable sendmail" do
   command "service sendmail stop"
-  action :nothing
-  returns [0,1]
-  notifies :stop, "service[sendmail]", :immediately
+  action :run
+#  returns [0,1]
+#  notifies :stop, "service[sendmail]", :immediately
 end
 execute "remove autostart for sendmail" do
   command "chkconfig --del sendmail"
@@ -202,7 +202,7 @@ execute "add autostart for stunnel" do
 end
 execute "start stunnel" do
   command "service stunnel start"
-  action :nothing
-  returns [0,1]
-  notifies :start, "service[stunnel]", :immediately
+  action :run
+#  returns [0,1]
+#  notifies :start, "service[stunnel]", :immediately
 end
