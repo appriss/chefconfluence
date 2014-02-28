@@ -50,7 +50,8 @@ set[:java][:install_flavor]    = "oracle"
 set[:oracledb][:jdbc][:install_dir] = ::File.join(node[:confluence][:install_path],node[:confluence][:base_name],"lib")
 
 # new relic installed?
-if node.default[:confluence][:newrelic][:enabled] = true
+default[:confluence][:newrelic][:enabled] = false
+if node[:confluence][:newrelic][:enabled] = true
 	set[:newrelic][:app_user] = node[:confluence][:newrelic][:app_user] if node[:confluence][:newrelic][:app_user]
 	set[:newrelic][:app_group] = node[:confluence][:newrelic][:app_group] if node[:confluence][:newrelic][:app_group]
 	set[:newrelic][:install_dir] = node[:confluence][:newrelic][:install_dir] if node[:confluence][:newrelic][:install_dir]
