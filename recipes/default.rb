@@ -44,9 +44,9 @@ end
 if node[:confluence][:database][:type] == "oracle"
   uri = ::URI.parse(node[:confluence][:database][:driver_url])
   if uri.scheme == "s3"
-    Chef::Log.info ("URI #{node[:confluence][:database][:driver_url]}")
-    Chef::Log.info ("HOST #{uri.host}")
-    Chef::Log.info ("PATH #{uri.path}")
+    Chef::Log.info("URI #{node[:confluence][:database][:driver_url]}")
+    Chef::Log.info("HOST #{uri.host}")
+    Chef::Log.info("PATH #{uri.path}")
     s3_file ::File.join(confluence_base_dir,"lib","oracle_jdbc_driver.jar") do
       bucket uri.host
       remote_path uri.path
