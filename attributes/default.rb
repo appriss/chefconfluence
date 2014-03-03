@@ -49,14 +49,3 @@ default[:confluence][:jsw][:source]        = "http://wrapper.tanukisoftware.com/
 set[:java][:install_flavor]    = "oracle"
 set[:oracledb][:jdbc][:install_dir] = ::File.join(node[:confluence][:install_path],node[:confluence][:base_name],"lib")
 
-# new relic installed?
-default[:confluence][:newrelic][:enabled] = false
-if node[:confluence][:newrelic][:enabled] = true
-	set[:newrelic][:app_user] = node[:confluence][:newrelic][:app_user] if node[:confluence][:newrelic][:app_user]
-	set[:newrelic][:app_group] = node[:confluence][:newrelic][:app_group] if node[:confluence][:newrelic][:app_group]
-	set[:newrelic][:install_dir] = node[:confluence][:newrelic][:install_dir] if node[:confluence][:newrelic][:install_dir]
-	set[:newrelic][:server_monitoring][:license] = node[:confluence][:newrelic][:server_license] if node[:confluence][:newrelic][:server_license]
-	set[:newrelic][:application_monitoring][:license] = node[:confluence][:newrelic][:app_license] if node[:confluence][:newrelic][:app_license]
-	set[:newrelic][:https_download] = node[:confluence][:newrelic][:https_download] if node[:confluence][:newrelic][:https_download]
-	set[:newrelic][:jar_file] = node[:confluence][:newrelic][:jar_file] if node[:confluence][:newrelic][:jar_file]
-end
