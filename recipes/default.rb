@@ -114,6 +114,20 @@ template File.join(wrapper_home,"conf","wrapper.conf") do
   })
 end
 
+#Install NewRelic if configured
+if node[:confluence][:newrelic][:enabled]
+  include_recipe 'newrelic::java-agent'
+  #We need to explictly disable JSP autoinstrument
+  newrelic_conf = File.join(confluence_base_dir, 'newrelic', 'newrelic.yml')
+  ruby_block "disable autoinstrument for JSP pages." do 
+    block do
+      f = Chef::Util::FileEdit.new(newrelic_conf)
+      f.search_file_replace(/auto_instrument: true/,'auto_instrument: false')
+      f.write_file
+    end
+  end
+end
+
 # Create wrapper startup script
 template File.join(wrapper_home,"bin","confluence") do
   owner node[:confluence][:run_as]

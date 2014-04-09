@@ -44,8 +44,19 @@ default[:confluence][:jsw][:base_name]     = "wrapper-linux-#{node[:confluence][
 default[:confluence][:jsw][:version]       = "3.5.20"
 default[:confluence][:jsw][:install_path]  = ::File.join(node[:confluence][:install_path],"#{node[:confluence][:base_name]}")
 default[:confluence][:jsw][:source]        = "http://wrapper.tanukisoftware.com/download/#{node[:confluence][:jsw][:version]}/wrapper-linux-#{node[:confluence][:jsw][:arch]}-#{node[:confluence][:jsw][:version]}.tar.gz"
+default[:confluence][:newrelic][:enabled]  = false
+default[:confluence][:newrelic][:version]  = "3.5.0"
+default[:confluence][:newrelic][:app_name] = node['hostname']
 # Confluence doesn't support OpenJDK http://confluence.atlassian.com/browse/CONF-16431
 # FIXME: There are some hardcoded paths like JAVA_HOME
 set[:java][:install_flavor]    = "oracle"
 set[:oracledb][:jdbc][:install_dir] = ::File.join(node[:confluence][:install_path],node[:confluence][:base_name],"lib")
+
+normal[:newrelic][:'java-agent'][:install_dir]   = ::File.join(node[:confluence][:install_path],node[:confluence][:base_name],"newrelic")
+normal[:newrelic][:'java-agent'][:app_user] = node[:confluence][:run_as]
+normal[:newrelic][:'java-agent'][:app_group] = node[:confluence][:run_as]
+normal[:newrelic][:'java-agent'][:https_download] = "https://download.newrelic.com/newrelic/java-agent/newrelic-agent/#{node[:confluence][:newrelic][:version]}/newrelic-agent-#{node[:confluence][:newrelic][:version]}.jar"
+normal[:newrelic][:'java-agent'][:jar_file] = "newrelic-agent-#{node[:confluence][:newrelic][:version]}.jar"
+normal[:newrelic][:application_monitoring][:logfile] = ::File.join(node[:confluence][:home], "log", "newrelic.log")
+normal[:newrelic][:application_monitoring][:appname] = node[:confluence][:newrelic][:app_name]
 
