@@ -111,7 +111,7 @@ template File.join(wrapper_home,"conf","wrapper.conf") do
   variables({
     :wrapper_home => wrapper_home,
     :confluence_base_dir => confluence_base_dir,
-    :newrelic_jar => File.join(jira_base_dir,'newrelic', 'newrelic.jar')
+    :newrelic_jar => File.join(confluence_base_dir,'newrelic', 'newrelic.jar')
   })
 end
 
