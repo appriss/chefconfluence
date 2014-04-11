@@ -76,6 +76,8 @@ wrapper.java.additional.6=-Dcatalina.home=<%= @confluence_base_dir %>
 wrapper.java.additional.7=-Djava.io.tmpdir=<%= @confluence_base_dir %>/temp
 wrapper.java.additional.8=-XX:MaxPermSize=256m
 wrapper.java.additional.9=-Djava.awt.headless=true
+wrapper.java.additional.10=-XX:+UseConcMarkSweepGC
+wrapper.java.additional.11=-XX:+UseParNewGC
 <% if node[:confluence][:newrelic][:enabled] %>
 wrapper.java.additional.18=-javaagent:<%= @newrelic_jar %>
 <% end %>
