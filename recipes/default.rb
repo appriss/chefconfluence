@@ -67,7 +67,7 @@ end
 
 # Set the permissions of the Atlassian Confluence directory
 execute "configure confluence permissions" do
-  command "chown -R #{node[:confluence][:run_as]} #{node[:confluence][:install_path]}"
+  command "chown -R #{node[:confluence][:run_as]} #{node[:confluence][:install_path]} #{node[:confluence][:home]}"
   action :nothing
 end
 
