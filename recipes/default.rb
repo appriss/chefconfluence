@@ -172,3 +172,12 @@ end
 #  server_name node[:fqdn]
 #  server_aliases [node[:hostname], "confluence"]
 #end
+
+# disable sendmail for redirect using stunnel
+# By: Rick Thiessen - 09/10/2014
+# disable sendmail
+service "disable sendmail" do
+  service_name "sendmail"
+  action [ :stop, :disable ]
+end
+
